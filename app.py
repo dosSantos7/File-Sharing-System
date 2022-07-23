@@ -73,8 +73,12 @@ def signup():
         if User.find_by_username(request_data['username']):
             return jsonify({"message": "A user with that username already exists"}), 409
 
+        user_type = request_data.get('type', 'client')
+        if user_type not in ['client', 'operation']:
+            return jsonify({'message': 'Invalid Type Specified'}), 404
+
         new_user = User(request_data['username'],
-                        generate_password_hash(request_data['password']), request_data['type'], str(uuid.uuid4()))
+                        generate_password_hash(request_data['password']), user_type, str(uuid.uuid4()))
         new_user.save_to_db()
 
         return jsonify({'message': 'New user created!'}), 201

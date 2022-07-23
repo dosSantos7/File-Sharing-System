@@ -5,5 +5,5 @@ register_schema = {
         "password": {"type": "string"},
         "type": {"type": "string"}
     },
-    "required": ["username", "password", "type"]
+    "required": ["username", "password"]
 }
